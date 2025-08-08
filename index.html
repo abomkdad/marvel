@@ -151,16 +151,35 @@
     document.getElementById('submitBtn').innerText = t.submit;
     document.getElementById('stepBar').innerText = t.stepBar;
 
-    document.getElementById("orderForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const address = document.getElementById("address").value;
-      const note = document.getElementById("note").value;
-      const pageName = window.location.pathname.split("/").pop().replace(".html", "");
-      const message = `طلب جديد من صفحة ${pageName}%0A👤 الاسم: ${name}%0A📞 الهاتف: ${phone}%0A📍 العنوان: ${address}%0A✏️ ملاحظة: ${note}`;
-      const whatsapp = "https://wa.me/972525105889?text=" + message;
-      window.open(whatsapp, "_blank");
+const name = document.getElementById('name').value.trim();
+const phone = document.getElementById('phone').value.trim();
+const address = document.getElementById('address').value.trim();
+const note = document.getElementById('note').value.trim();
+
+const lang = navigator.language || navigator.userLanguage;
+const isHebrew = lang.startsWith('he');
+
+let message;
+
+if (isHebrew) {
+  message = `שלום, אני מעוניין לבצע הזמנה עבור מבצע הבשמים Marvel: 
+👤 שם: ${name}
+📞 טלפון: ${phone}
+🏠 כתובת: ${address}
+📝 הערה: ${note || 'ללא'}
+`;
+} else {
+  message = `مرحباً، أود تأكيد طلبي على عرض عطور مارڤيل:
+👤 الاسم: ${name}
+📞 الهاتف: ${phone}
+🏠 العنوان: ${address}
+📝 ملاحظة: ${note || 'لا يوجد'}
+`;
+}
+
+const encodedMessage = encodeURIComponent(message);
+window.location.href = `https://wa.me/972525105889?text=${encodedMessage}`;
+
     });
   </script>
 </body>
