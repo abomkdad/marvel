@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="اطلب الآن مجموعة عطور مارڤيل عبر واتساب">
+  <title>طلب العطر</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      display: block;
+      margin: auto;
+    }
+    h1 {
+      margin: 20px auto;
+      font-size: 28px;
+      color: #f3f3f3;
+    }
+    form {
+      background: #1e1e1e;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: 20px auto;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      background: #2a2a2a;
+      color: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <img src="banner.png" alt="Perfume" />
+  <h1 id="form-title">تحميل...</h1>
+  <form id="orderForm">
+    <input type="text" id="name" placeholder="الاسم الكامل" required>
+    <input type="text" id="phone" placeholder="رقم الهاتف" required>
+    <input type="text" id="country" placeholder="البلد" required>
+    <textarea id="note" placeholder="ملاحظة (اختياري)" rows="3"></textarea>
+    <button type="submit" id="submit-btn">أرسل الطلب عبر واتساب</button>
+  </form>
+
+  <script>
+    const lang = navigator.language || navigator.userLanguage;
+    const isEnglish = lang.startsWith("en");
+    const isHebrew = lang.startsWith("he");
+
+    // استخراج اسم المجموعة من رابط الصفحة
+    let path = window.location.pathname;
+    let group = path.split("/").filter(Boolean).pop() || "العطر";
+
+    // تنسيق الاسم
+    const formatName = (name) => {
+      return decodeURIComponent(name).replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+    };
+
+    let formattedGroup = formatName(group);
+
+    // تعيين اللغة
+    if (isEnglish) {
+      document.documentElement.lang = "en";
+      document.documentElement.dir = "ltr";
+      document.getElementById("form-title").textContent = `Order the ${formattedGroup} Perfume Set Now`;
+      document.getElementById("name").placeholder = "Full Name";
+      document.getElementById("phone").placeholder = "Phone Number";
+      document.getElementById("country").placeholder = "Country";
+      document.getElementById("note").placeholder = "Note (Optional)";
+      document.getElementById("submit-btn").textContent = "Send Order via WhatsApp";
+    } else if (isHebrew) {
+      document.documentElement.lang = "he";
+      document.documentElement.dir = "rtl";
+      document.getElementById("form-title").textContent = `הזמן עכשיו את ערכת הבשמים של ${formattedGroup}`;
+      document.getElementById("name").placeholder = "שם מלא";
+      document.getElementById("phone").placeholder = "מספר טלפון";
+      document.getElementById("country").placeholder = "מדינה";
+      document.getElementById("note").placeholder = "הערה (אופציונלי)";
+      document.getElementById("submit-btn").textContent = "שלח הזמנה בוואטסאפ";
+    } else {
+      document.getElementById("form-title").textContent = `اطلب الآن مجموعة عطور ${formattedGroup}`;
+    }
+
+    // إرسال الطلب
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      var name = document.getElementById("name").value.trim();
+      var phone = document.getElementById("phone").value.trim();
+      var country = document.getElementById("country").value.trim();
+      var note = document.getElementById("note").value.trim();
+
+      let message = "";
+
+      if (isEnglish) {
+        message = `Hi, I'm ${name} from ${country}, my number is ${phone}.\nI’d like to order the ${formattedGroup} perfume offer.${note ? "\nNote: " + note : ""}`;
+      } else if (isHebrew) {
+        message = `שלום, אני ${name} מ- ${country}, מספרי ${phone}.\nרוצה להזמין את ההצעה של הבשמים של ${formattedGroup}.${note ? "\nהערה: " + note : ""}`;
+      } else {
+        message = `مرحبًا، أنا ${name} من ${country}، رقمي ${phone}.\nأرغب بطلب عرض عطور ${formattedGroup}.${note ? "\nملاحظة: " + note : ""}`;
+      }
+
+      var encodedMessage = encodeURIComponent(message);
+
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+      if (typeof ttq !== 'undefined') ttq.track('Lead');
+
+      setTimeout(function() {
+        window.open("https://wa.me/972525105889?text=" + encodedMessage, "_blank");
+      }, 300);
+    });
+  </script>
+</body>
+</html>
