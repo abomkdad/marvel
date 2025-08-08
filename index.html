@@ -24,21 +24,56 @@ src="https://www.facebook.com/tr?id=1278802597312896&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
-  <!-- Snap Pixel Code -->
-<script type='text/javascript'>
-(function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
-{a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
-a.queue=[];var s='script';r=t.createElement(s);r.async=!0;
-r.src=n;var u=t.getElementsByTagName(s)[0];
-u.parentNode.insertBefore(r,u);})(window,document,
-'https://sc-static.net/scevent.min.js');
+<!-- Snap Pixel Code -->
+<script type="text/javascript">
+  // تثبيت مكتبة Snapchat
+  (function(e,t,n){
+    if(e.snaptr) return;
+    var a = e.snaptr = function(){
+      a.handleRequest ? a.handleRequest.apply(a, arguments) : a.queue.push(arguments);
+    };
+    a.queue = [];
+    var s = 'script';
+    var r = t.createElement(s);
+    r.async = true;
+    r.src = n;
+    var u = t.getElementsByTagName(s)[0];
+    u.parentNode.insertBefore(r,u);
+  })(window, document, 'https://sc-static.net/scevent.min.js');
 
-snaptr('init', '33f9ce6c-9a7e-4019-8023-98c3ead1fdf0', {});
+  // تهيئة البيكسل
+  snaptr('init', '33f9ce6c-9a7e-4019-8023-98c3ead1fdf0', {});
 
-snaptr('track', 'PAGE_VIEW');
+  // تسجيل عرض الصفحة
+  snaptr('track', 'PAGE_VIEW');
 
+  // تسجيل بقية الأحداث عند الضغط على الزر
+  function submitSnapEvents() {
+    // ✅ Add to Cart
+    snaptr('track', 'ADD_CART', {
+      price: 100,
+      currency: 'ILS',
+      item_ids: ['marvel_offer'],
+      item_category: 'Perfume',
+      number_items: 1
+    });
+
+    // ✅ Lead
+    snaptr('track', 'LEAD');
+
+    // ✅ Purchase
+    snaptr('track', 'PURCHASE', {
+      transaction_id: 'wa-' + Date.now(),
+      price: 100,
+      currency: 'ILS',
+      item_category: 'Perfume',
+      item_ids: ['marvel_offer'],
+      quantity: 1
+    });
+  }
 </script>
 <!-- End Snap Pixel Code -->
+
   
 <!-- TikTok Pixel Code Start -->
 <script>
