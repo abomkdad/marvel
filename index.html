@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>عرض مارڤيل</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0e0e0e;
+      color: white;
+      text-align: center;
+    }
+    .main-image {
+      width: 100%;
+      display: block;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+    video {
+      width: 100%;
+      border-radius: 12px;
+    }
+    .form-container {
+      background: #111;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+    input, textarea {
+      background: #222;
+      color: white;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+    .countdown {
+      background: #fff3cd;
+      color: #856404;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      display: inline-block;
+      font-size: 14px;
+    }
+    .progress-img {
+      width: 80%;
+      max-width: 400px;
+      margin: 20px auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <img src="Untitled design (6).png" alt="عرض مارڤيل" class="main-image">
+  <img src="Untitled design (7).png" alt="تبقى خطوة" class="progress-img">
+
+  <div class="countdown">⏳ تبقى 5 عملاء فقط يمكنهم الحصول على عرض مارڤيل قبل انتهاء العرض!</div>
+
+  <div class="form-container">
+    <h2 id="form-title">أرغب بطلب عرض عطور Marvel</h2>
+    <form id="order-form">
+      <input type="text" name="name" placeholder="الاسم الكامل" required>
+      <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+      <input type="text" name="address" placeholder="العنوان" required>
+      <textarea name="note" placeholder="ملاحظة ( اختياري )"></textarea>
+      <button type="submit" id="submit-btn">تأكيد الطلب</button>
+    </form>
+  </div>
+
+  <div class="video-container">
+    <video id="promoVideo"
+      src="https://madperfume.ps/upload/07-2025/page/Copy%20of%2028.mp4"
+      autoplay muted playsinline loop>
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+  </div>
+
+  <script>
+    const translations = {
+      ar: {
+        title: "أرغب بطلب عرض عطور Marvel",
+        name: "الاسم الكامل",
+        phone: "رقم الهاتف",
+        address: "العنوان",
+        note: "ملاحظة ( اختياري )",
+        submit: "تأكيد الطلب"
+      },
+      he: {
+        title: "אני מעוניין להזמין את מבצע הבשמים של Marvel",
+        name: "השם המלא",
+        phone: "מספר טלפון",
+        address: "כתובת",
+        note: "הערה (לא חובה)",
+        submit: "אישור ההזמנה"
+      }
+    };
+
+    const userLang = navigator.language.startsWith("he") ? "he" : "ar";
+    const t = translations[userLang];
+    document.getElementById("form-title").innerText = t.title;
+    const form = document.getElementById("order-form");
+    form.name.placeholder = t.name;
+    form.phone.placeholder = t.phone;
+    form.address.placeholder = t.address;
+    form.note.placeholder = t.note;
+    document.getElementById("submit-btn").innerText = t.submit;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = form.name.value;
+      const phone = form.phone.value;
+      const address = form.address.value;
+      const note = form.note.value;
+      const message = `مرحبا، أود طلب عرض مارڤيل:
+الاسم: ${name}
+الهاتف: ${phone}
+العنوان: ${address}
+ملاحظة: ${note}`;
+      const url = `https://wa.me/972525105889?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+
+    // تشغيل الصوت عند الضغط
+    const video = document.getElementById('promoVideo');
+    video.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        video.play();
+      }
+    });
+  </script>
+</body>
+</html>
