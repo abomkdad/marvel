@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلب عرض عطور مارڤيل</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .progress-container {
+      width: 90%;
+      background: #fff;
+      border-radius: 30px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+    .progress-bar {
+      width: 80%;
+      height: 30px;
+      background-color: green;
+      border-radius: 30px;
+      animation: progress 2s ease-in-out forwards;
+    }
+    @keyframes progress {
+      0% { width: 0; }
+      100% { width: 80%; }
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.5em;
+    }
+    form {
+      background-color: #111;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      width: 100%;
+      max-width: 400px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #222;
+      color: white;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.2em;
+    }
+    img {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <img src="banner.png" alt="عرض مارفيل">
+  <div class="progress-container">
+    <div class="progress-bar"></div>
+  </div>
+  <h1>أرغب بطلب عرض عطور <span style="color: #00ccff;">Marvel</span></h1>
+  <form action="https://api.whatsapp.com/send" method="get" onsubmit="return sendWhatsApp(event)">
+    <input type="text" id="name" placeholder="الاسم الكامل" required>
+    <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+    <input type="text" id="address" placeholder="العنوان" required>
+    <textarea id="note" placeholder="ملاحظة (اختياري)"></textarea>
+    <button type="submit">تأكيد الطلب</button>
+  </form>
+
+  <script>
+    function sendWhatsApp(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+      const note = document.getElementById('note').value;
+      const group = window.location.pathname.split("/").pop().replace("/", "") || "Marvel";
+      const lang = navigator.language.startsWith("he") ? "he" : "ar";
+      
+      const message = lang === "he"
+        ? `אני רוצה להזמין את מארז הבשמים Marvel
+👤 שם: ${name}
+📞 טלפון: ${phone}
+📍 כתובת: ${address}
+📝 הערה: ${note}`
+        : `أرغب بطلب عرض عطور ${group}
+👤 الاسم: ${name}
+📞 الهاتف: ${phone}
+📍 العنوان: ${address}
+📝 ملاحظة: ${note}`;
+
+      const encoded = encodeURIComponent(message);
+      const url = `https://wa.me/972525105889?text=${encoded}`;
+      window.open(url, '_blank');
+      return false;
+    }
+  </script>
+</body>
+</html>
