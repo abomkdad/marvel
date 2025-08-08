@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>عرض مجموعة مارفيل</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #fff; text-align: center; }
+    img { width: 100%; display: block; }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: #f9f9f9;
+      direction: rtl;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 90%;
+      max-width: 400px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button { background-color: green; color: white; border: none; cursor: pointer; }
+  </style>
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);
+    t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_META_PIXEL_ID');
+    fbq('track', 'PageView');
+  </script>
+
+  <!-- TikTok Pixel -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t;
+      var ttq = w[t] = w[t] || [];
+      ttq.methods = ["page", "track"];
+      ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments))) } };
+      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.load = function (e, n) {
+        var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
+        var o = document.createElement("script");
+        o.type = "text/javascript", o.async = !0, o.src = i;
+        var a = document.getElementsByTagName("script")[0];
+        a.parentNode.insertBefore(o, a);
+        ttq._i = ttq._i || {}, ttq._i[e] = [], ttq._t = ttq._t || {}, ttq._t[e] = +new Date;
+        ttq._o = ttq._o || {}, ttq._o[e] = n || {};
+      };
+      ttq.load('YOUR_TIKTOK_PIXEL_ID');
+      ttq.page();
+    }(window, document, 'ttq');
+  </script>
+</head>
+<body>
+
+  <img src="banner.png" alt="عرض مجموعة مارفيل">
+
+  <form id="leadForm" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" method="POST">
+    <input type="text" name="name" placeholder="الاسم الكامل" required>
+    <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+    <input type="hidden" name="product" value="عرض مارفيل">
+    <button type="submit">أرسل الطلب</button>
+  </form>
+
+  <script>
+    document.getElementById("leadForm").addEventListener("submit", function () {
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+      if (typeof ttq !== 'undefined') ttq.track('Lead');
+    });
+  </script>
+
+</body>
+</html>
